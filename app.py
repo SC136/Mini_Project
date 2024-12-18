@@ -15,14 +15,13 @@ def update_image(image_path):
     image_label.config(image=img_tk)
     image_label.image = img_tk  # Keep a reference to avoid garbage collection
 
-# Function to handle command input
+# Function to handle command input and update image dynamically
 def process_command():
     command = command_entry.get().strip().lower()
     
     if command == "help":
         # Show available commands when the user types 'help'
-        output_label.config(text="""
-Available Commands:
+        output_label.config(text="""Available Commands:
 - look: Look around to describe your surroundings.
 - move north: Move north towards a new location.
 - move south: Move south towards a new location.
@@ -39,24 +38,35 @@ Available Commands:
         
         # Show back button to return to normal state
         back_button.pack(pady=10)
+        update_image("help_image.jpg")  # Example image when 'help' is shown
+
     elif command == "look":
         output_label.config(text="You look around and see a beautiful landscape.")
+        update_image("landscape.jpg")  # Change to an image of the landscape
     elif command == "move north":
         output_label.config(text="You move north to a dark forest.")
+        update_image("dark_forest.jpg")  # Change to an image of the dark forest
     elif command == "move south":
         output_label.config(text="You move south to a peaceful meadow.")
+        update_image("peaceful_meadow.jpg")  # Change to an image of the meadow
     elif command == "take sword":
         output_label.config(text="You have taken the sword.")
+        update_image("sword.jpg")  # Change to an image of the sword
     elif command == "inventory":
         output_label.config(text="Your inventory contains: sword, map.")
+        update_image("inventory.jpg")  # Change to an image of the inventory
     elif command == "dance":
         output_label.config(text="Your character starts dancing joyfully!")
+        update_image("dance.jpg")  # Change to an image of the character dancing
     elif command == "sing":
         output_label.config(text="Your character sings a beautiful song!")
+        update_image("singing.jpg")  # Change to an image of the character singing
     elif command == "jump":
         output_label.config(text="Your character jumps high into the air!")
+        update_image("jump.jpg")  # Change to an image of the character jumping
     else:
         output_label.config(text="I don't understand that command.")
+        update_image("error.jpg")  # Show an error image for unrecognized commands
     
     command_entry.delete(0, tk.END)  # Clear the entry box
 
@@ -68,6 +78,7 @@ def go_back():
     submit_button.pack(pady=10)
     # Hide the back button
     back_button.pack_forget()
+    update_image("default.jpg")  # Reset image to default state
 
 # Layout for displaying the game info
 image_label = tk.Label(root)
@@ -84,8 +95,8 @@ submit_button.pack(pady=10)
 
 back_button = tk.Button(root, text="Back", font=("Helvetica", 12), command=go_back)
 
-# Example to show the layout works with an image
-update_image("fire_dragon.jpg")  # You can change this image path based on your own image files
+# Initial image display
+update_image("fire_dragon.jpg")  # Display the default starting image
 
 # Run the Tkinter event loop
 root.mainloop()
